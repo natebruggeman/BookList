@@ -1,4 +1,4 @@
-// Book Constructor
+//Book Constructor
 function Book(title, author, isbn){
     this.title = title;
     this.author = author;
@@ -6,12 +6,24 @@ function Book(title, author, isbn){
 }
 
 
-
-
 //UI Constructor 
 
 function UI(){}
 
+//Add book to the list
+UI.prototype.addBookToList = function(book){
+    const list = document.getElementById('book-list');
+    //create tr element
+    const row = document.createElement('tr');
+    // insert columns
+    row.innerHTML = `
+    <td>${book.title}</td>
+    <td>${book.author}</td>
+    <td>${book.isbn}</td>
+    <td><a href="#" class="delete">X</a></td>
+    `
+    list.appendChild(row);
+}
 
 //event listeners
 document.getElementById('book-form').addEventListener('submit', function(e){
@@ -20,20 +32,15 @@ document.getElementById('book-form').addEventListener('submit', function(e){
     const author = document.getElementById('author').value;
     const isbn = document.getElementById('isbn').value;
 
-    console.log(title, author, isbn)
+    //instatiating a book object
+    const book = new Book(title, author, isbn);
+
+    //instatiating a ui object
+    const ui = new UI();
+
+    ui.addBookToList(book);
+
 
     e.preventDefault();
 })
-
-
-
-
-
-
-
-
-
-
-
-
 
